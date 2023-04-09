@@ -10,6 +10,8 @@ const refs = {
   mins: document.querySelector('[data-minutes]'),
   secs: document.querySelector('[data-seconds]'),
 };
+ 
+refs.startBtn.setAttribute('disabled', 'disabled');
 
 const options = {
   enableTime: true,
@@ -20,28 +22,21 @@ const options = {
   onClose(selectedDates) {
     if (selectedDates[0] < Date.now()) {
       Notiflix.Notify.failure('Please choose a date in the future');
-      refs.startBtn.setAttribute('disabled', 'disabled');
-      return;
-    };
+    } else {
+      refs.startBtn.removeAttribute('disabled');
+    }
+    }
   }
-};
-
+  
 flatpickr(refs.input, options); 
 
 const onStartBtnClick = () => {
-  if (options.defaultDate) {
-    Notiflix.Notify.failure('Please choose a date in the future');
-    return;
-  }
   let intervalId = null;
   intervalId = setInterval(() => {
     const startTime = Date.now();
     const currentTime = new Date(refs.input.value);
     const deltaTime = currentTime - startTime;
     const time = convertMs(deltaTime);
-    updateClockFace(time);
-    console.log(time.days);
-    refs.startBtn.setAttribute('disabled', 'disabled');
     if (
       time.days === '00' &&
       time.hours === '00' &&
@@ -49,13 +44,15 @@ const onStartBtnClick = () => {
       time.seconds === '00'
     ) {
       clearInterval(intervalId);
+      return;
     }
+    updateClockFace(time);
+    console.log(time.days);
+    refs.startBtn.setAttribute('disabled', 'disabled');
   }, 1000);
 };
 
-
 refs.startBtn.addEventListener('click', onStartBtnClick);
-
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
