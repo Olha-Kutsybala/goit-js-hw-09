@@ -18,9 +18,11 @@ function onStartBtnClick() {
         body.style.background = getRandomHexColor();
     }, 1000);
     startBtn.setAttribute('disabled', 'disabled');
+    stopBtn.removeAttribute('disabled')
 }
 
 function onStopBtnClick() {
 startBtn.removeAttribute('disabled');
- clearInterval(timerId);
+    clearInterval(timerId);
+    stopBtn.setAttribute('disabled', 'disabled');
 }

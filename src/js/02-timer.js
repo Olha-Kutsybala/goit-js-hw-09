@@ -38,16 +38,15 @@ const onStartBtnClick = () => {
     const deltaTime = currentTime - startTime;
     const time = convertMs(deltaTime);
     if (
-      time.days === '00' &&
-      time.hours === '00' &&
-      time.minutes === '00' &&
-      time.seconds === '00'
+      time.days === '-1' &&
+      time.hours === '-1' &&
+      time.minutes === '-1' &&
+      time.seconds === '-1'
     ) {
       clearInterval(intervalId);
       return;
     }
     updateClockFace(time);
-    console.log(time.days);
     refs.startBtn.setAttribute('disabled', 'disabled');
   }, 1000);
 };

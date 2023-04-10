@@ -1,8 +1,10 @@
 import Notiflix from 'notiflix';
 
 const form = document.querySelector('.form');
+const button = document.querySelector('button');
 
 form.addEventListener('submit', onSubmit);
+
 
 function onSubmit(evt) {
   evt.preventDefault();
@@ -13,17 +15,20 @@ function onSubmit(evt) {
   for (let position = 1; position <= amountOfPromise; position += 1) {
     createPromise(position, firstDelay);
     firstDelay += delayStep;
-  };
-   
   }
+evt.currentTarget.reset();
+}
+  
 
 
 function createPromise(position, delay) {
+  
   const promise = new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
         resolve({ position, delay });
+        
       } else {
         reject({ position, delay });
       }
