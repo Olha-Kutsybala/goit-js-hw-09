@@ -37,12 +37,7 @@ const onStartBtnClick = () => {
     const currentTime = new Date(refs.input.value);
     const deltaTime = currentTime - startTime;
     const time = convertMs(deltaTime);
-    if (
-      time.days === '-1' &&
-      time.hours === '-1' &&
-      time.minutes === '-1' &&
-      time.seconds === '-1'
-    ) {
+    if(deltaTime <= 0) {
       clearInterval(intervalId);
       return;
     }
